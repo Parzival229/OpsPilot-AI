@@ -1,0 +1,57 @@
+﻿# -------------------------
+# Python
+# -------------------------
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+
+# -------------------------
+# Node
+# -------------------------
+node_modules/
+dist/
+
+# -------------------------
+# Environment Files
+# -------------------------
+.env
+.env.local
+.env.production
+.env.development
+
+# -------------------------
+# IDE
+# -------------------------
+.vscode/
+.idea/
+
+# -------------------------
+# OS
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Environment variables — NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

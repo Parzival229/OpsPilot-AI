@@ -1,0 +1,282 @@
+/**
+ * Mock structured responses for each hospital operations scenario.
+ * Replace the `fetchResponse` function in services/watsonxApi.js with a real
+ * IBM watsonx AI Agent API call when the backend is ready.
+ */
+
+export const SCENARIO_RESPONSES = {
+  'Emergency Patient Admission': {
+    scenario: 'Emergency Patient Admission',
+    summary:
+      'Governs the rapid, safe admission of emergency patients from triage to an inpatient bed, ensuring continuity of care, appropriate resource allocation, and regulatory compliance at every handoff point.',
+    workflow: [
+      'Patient arrives at Emergency Department (ED) – triage nurse assigns ESI level within 5 minutes.',
+      'Physician assessment initiated; orders placed in EMR within 15 minutes of ESI-1/2 classification.',
+      'Bed Management notified; capacity status checked across all wards and ICU.',
+      'Transport & Patient Escort assigned; patient moved to designated bed with full handoff documentation.',
+      'Admitting physician completes H&P within 24 hours; nursing care plan activated.',
+      'Pharmacy reconciles medication list; allergy alerts verified in EMR.',
+      'Social Work and Care Management alerted for complex or high-risk admissions.',
+    ],
+    responsibleStaff: [
+      { role: 'Triage RN', responsibility: 'Initial ESI assignment, vitals, allergy capture' },
+      { role: 'ED Attending Physician', responsibility: 'Diagnosis, admission order entry, handoff to hospitalist' },
+      { role: 'Charge Nurse (ED)', responsibility: 'Bed request escalation, throughput coordination' },
+      { role: 'Bed Management Coordinator', responsibility: 'Real-time bed assignment, overflow routing' },
+      { role: 'Patient Transport Staff', responsibility: 'Safe transfer with equipment checklist' },
+      { role: 'Hospitalist / Admitting MD', responsibility: 'H&P completion, care plan, family communication' },
+    ],
+    requiredDocumentation: [
+      'Triage Assessment Form (ESI score, chief complaint, vitals)',
+      'Physician Admission Orders in EMR',
+      'Consent for Treatment',
+      'Insurance Verification & Pre-authorization (if applicable)',
+      'Medication Reconciliation Form',
+      'Allergy and Adverse Drug Reaction Record',
+      'Nursing Admission Assessment (within 2 hours of arrival)',
+      'Fall Risk & Pressure Injury Screening',
+    ],
+    safetyCompliance: [
+      'Joint Commission NPSG.01.01.01 – Two-factor patient identification at every handoff.',
+      'CMS Condition of Participation §482.13 – Patient rights notification within 2 hours.',
+      'EMTALA compliance – Medical Screening Exam completed before financial inquiry.',
+      'Isolation precautions activated if infection risk identified during triage.',
+      'Code status and advance directives reviewed and documented.',
+      'Restraint protocol reviewed if behavioral risk noted.',
+    ],
+    relatedProcedures: [
+      'Rapid Triage Protocol (OP-ED-001)',
+      'Bed Management & Throughput Policy (OP-BM-007)',
+      'Patient Handoff Communication – SBAR Standard (OP-QS-012)',
+      'Medication Reconciliation at Admission (OP-PH-003)',
+      'Isolation and Infection Control Precautions (OP-IC-005)',
+    ],
+    operationalChecklist: [
+      'ESI level assigned and documented within 5 minutes',
+      'Two patient identifiers verified',
+      'Allergies entered and reconciled in EMR',
+      'Admission orders signed by physician',
+      'Bed assigned and transport arranged',
+      'Nursing admission assessment completed',
+      'Advance directive status confirmed',
+      'Family/next-of-kin contacted',
+      'Code status documented',
+      'Care management referral placed if indicated',
+    ],
+  },
+
+  'ICU to Ward Transfer': {
+    scenario: 'ICU to Ward Transfer',
+    summary:
+      'Structured protocol for safely transitioning stable patients from the Intensive Care Unit to a general medical or surgical ward, minimising adverse events and information gaps during inter-unit handoff.',
+    workflow: [
+      'Intensivist confirms patient meets discharge criteria: stable vitals ≥24 h, no vasoactive drips, tolerating enteral feeds or oral intake.',
+      'ICU charge nurse contacts receiving ward charge nurse; verbal handoff via SBAR initiated.',
+      'Receiving ward nurse assigned; bed prepared with appropriate monitoring equipment.',
+      'Transfer Summary generated in EMR: active problems, procedures, lines/drains, pending results.',
+      'Respiratory Therapy hands off ventilator weaning status and home O₂ plan if applicable.',
+      'Pharmacy reviews and reconciles ICU medications versus ward formulary.',
+      'Patient and family briefed on transfer, new care team, and change in monitoring intensity.',
+      'Physical transfer completed; receiving nurse performs full assessment within 30 minutes.',
+    ],
+    responsibleStaff: [
+      { role: 'Intensivist / Critical Care Attending', responsibility: 'Transfer eligibility determination, Transfer Summary sign-off' },
+      { role: 'ICU Charge Nurse', responsibility: 'Handoff initiation, SBAR communication, transfer checklist' },
+      { role: 'Receiving Ward RN', responsibility: 'Bed preparation, patient acceptance assessment, monitoring setup' },
+      { role: 'Clinical Pharmacist', responsibility: 'Medication reconciliation, drip-to-oral conversion orders' },
+      { role: 'Respiratory Therapist', responsibility: 'Oxygen and ventilator handoff documentation' },
+      { role: 'Care Coordinator', responsibility: 'Discharge planning continuity, post-ICU follow-up scheduling' },
+    ],
+    requiredDocumentation: [
+      'ICU Transfer Summary (EMR-generated, physician signed)',
+      'Medication Reconciliation – ICU to Ward',
+      'Active Lines, Drains, and Device Inventory',
+      'Nursing Handoff SBAR Note',
+      'Pending Lab and Radiology Result Log',
+      'Respiratory Therapy Handoff Note',
+      'Family Notification Record',
+      'Code Status Confirmation',
+    ],
+    safetyCompliance: [
+      'Minimum monitoring capability on receiving ward confirmed before transfer.',
+      'No patient moved without physician Transfer Order in EMR.',
+      'Vasoactive medications must be discontinued ≥2 hours before ward transfer.',
+      'Central venous catheters site assessed and documented; removal plan in orders.',
+      'Joint Commission NPSG.02.03.01 – Critical results communicated to receiving team.',
+      'Falls risk reassessment mandatory within 1 hour of arrival on ward.',
+    ],
+    relatedProcedures: [
+      'ICU Discharge Criteria and Transfer Protocol (OP-ICU-014)',
+      'Inter-Unit Patient Handoff Standard (OP-QS-012)',
+      'Post-ICU Monitoring Guidelines (OP-MED-021)',
+      'Medication Reconciliation at Level-of-Care Change (OP-PH-009)',
+      'Central Line Removal Policy (OP-IC-018)',
+    ],
+    operationalChecklist: [
+      'Transfer eligibility criteria met and documented',
+      'Transfer Summary completed and signed in EMR',
+      'Receiving unit notified and bed confirmed',
+      'SBAR handoff completed between ICU and ward nurses',
+      'Medication reconciliation completed',
+      'All active lines and drains inventoried',
+      'Pending results communicated to receiving physician',
+      'Patient and family counselled on care transition',
+      'Code status re-confirmed at handoff',
+      'Receiving RN assessment documented within 30 minutes',
+    ],
+  },
+
+  'Medication Error Workflow': {
+    scenario: 'Medication Error Workflow',
+    summary:
+      'Defines the immediate clinical response, escalation pathway, root-cause analysis process, and reporting obligations following any actual or near-miss medication error, in alignment with ISMP and Joint Commission standards.',
+    workflow: [
+      'Error identified by nurse, pharmacist, or physician; immediate patient safety assessment performed.',
+      'Prescriber and charge nurse notified immediately; incident documented in real time.',
+      'Clinical intervention initiated: antidote, supportive care, or monitoring per pharmacy guidance.',
+      'Patient and family informed per disclosure policy; apology and explanation provided.',
+      'Incident Report filed in safety reporting system (e.g., RL Solutions / Quantros) within 2 hours.',
+      'Pharmacy Director and Risk Management notified for Serious/Sentinel events.',
+      'Root-cause analysis (RCA) convened within 72 hours for near-miss; 45 days for serious event.',
+      'Corrective Action Plan documented and implemented; outcomes tracked.',
+    ],
+    responsibleStaff: [
+      { role: 'Discovering Clinician (RN/MD/RPh)', responsibility: 'Immediate patient assessment, prescriber notification, incident report initiation' },
+      { role: 'Charge Nurse', responsibility: 'Escalation, staffing support, documentation oversight' },
+      { role: 'Clinical Pharmacist', responsibility: 'Clinical intervention guidance, EMR order review, causality assessment' },
+      { role: 'Attending Physician', responsibility: 'Orders for treatment, patient communication, documentation' },
+      { role: 'Pharmacy Director', responsibility: 'Sentinel event escalation, regulatory notification if required' },
+      { role: 'Risk Management / Patient Safety Officer', responsibility: 'Incident investigation, RCA facilitation, regulatory reporting' },
+    ],
+    requiredDocumentation: [
+      'Incident/Occurrence Report (safety reporting system)',
+      'EMR Progress Note – Clinical response and patient status',
+      'Physician Order for corrective treatment',
+      'Pharmacy Causality Assessment',
+      'Patient & Family Disclosure Note',
+      'Root-Cause Analysis Report',
+      'Corrective Action Plan with implementation timeline',
+      'MedWatch / FDA report if device-related (if applicable)',
+    ],
+    safetyCompliance: [
+      'Joint Commission NPSG.03.06.01 – Anticoagulant safety; immediate reversal protocol activation.',
+      'ISMP High-Alert Medication List – heightened verification for insulin, opioids, chemotherapy.',
+      'CMS §482.25(b) – Pharmacy must review all medication orders before administration.',
+      'State mandatory reporting requirements for serious adverse drug events.',
+      'No punitive action for good-faith error reporting per just culture policy.',
+      'Sentinel event disclosure to The Joint Commission within 72 hours if applicable.',
+    ],
+    relatedProcedures: [
+      'Medication Administration and Verification Policy (OP-PH-001)',
+      'High-Alert Medication Handling (OP-PH-006)',
+      'Patient Safety Event Reporting (OP-QS-004)',
+      'Disclosure of Unanticipated Outcomes Policy (OP-RM-003)',
+      'Root-Cause Analysis and Action Planning (OP-QS-009)',
+    ],
+    operationalChecklist: [
+      'Immediate patient safety assessment completed',
+      'Prescriber and charge nurse notified',
+      'Clinical intervention ordered and administered',
+      'Incident report filed within 2 hours',
+      'Patient/family disclosure completed and documented',
+      'Pharmacy causality assessment recorded',
+      'Risk Management notified (if serious/sentinel)',
+      'Regulatory reporting assessed',
+      'RCA scheduled within required timeframe',
+      'Corrective action plan assigned and tracked',
+    ],
+  },
+
+  'Fire Emergency Response': {
+    scenario: 'Fire Emergency Response',
+    summary:
+      'Governs staff actions, patient evacuation sequencing, inter-departmental coordination, and post-event recovery procedures during a fire emergency within the hospital, in compliance with NFPA 101 Life Safety Code and The Joint Commission EC.02.03.01.',
+    workflow: [
+      'Fire or smoke discovered – staff activates nearest pull station and calls 2222 (or facility code).',
+      'Overhead Code RED announced: "Code Red, [Location], [Floor/Wing]."',
+      'R-A-C-E sequence initiated: Rescue, Alarm, Confine, Evacuate/Extinguish.',
+      'Charge nurse closes all unit doors; confirms zone isolation with facilities engineering.',
+      'P-A-S-S technique applied for portable extinguisher use by trained staff only.',
+      'Evacuation leader assigns patient priority tiers: ambulatory, wheelchair, non-ambulatory.',
+      'Non-ambulatory patients moved via horizontal evacuation first; vertical only if directed.',
+      'Head count conducted at assembly point; missing persons reported to Incident Commander.',
+      'Incident Command System (ICS) activated; communication with fire department established.',
+      'All-clear issued by Fire Marshal or Incident Commander before return to unit.',
+    ],
+    responsibleStaff: [
+      { role: 'Discovering Staff Member', responsibility: 'Alarm activation, initial R-A-C-E steps, verbal alert' },
+      { role: 'Charge Nurse / Unit Manager', responsibility: 'Evacuation leadership, door closure, patient triage for movement' },
+      { role: 'House Supervisor / Administrator on Call', responsibility: 'Incident Command activation, fire department liaison' },
+      { role: 'Facilities / Plant Operations', responsibility: 'HVAC shutdown, fire damper activation, elevator recall, utility isolation' },
+      { role: 'Security', responsibility: 'Access control, crowd management, perimeter security' },
+      { role: 'All Clinical Staff', responsibility: 'Patient evacuation assistance, equipment securing, accountability reporting' },
+    ],
+    requiredDocumentation: [
+      'Fire Incident Report (post-event, within 4 hours)',
+      'Patient Evacuation Log (names, destination, responsible staff)',
+      'Head-Count Verification Sheet at Assembly Point',
+      'Equipment and Medication Removed from Zone Log',
+      'Injury / Exposure Report for staff and patients',
+      'Post-Incident Debrief Summary',
+      'Regulatory Notification (State Health Dept. if patient harm occurs)',
+    ],
+    safetyCompliance: [
+      'NFPA 101 Life Safety Code – Horizontal evacuation before vertical.',
+      'Joint Commission EC.02.03.01 – Fire drills conducted twice per year per shift.',
+      'Oxygen shut-off valves located and accessible; staff trained annually.',
+      'Do-Not-Resuscitate status does NOT exempt patient from evacuation.',
+      'Ventilator-dependent patients require respiratory therapist accompaniment.',
+      'Facility fire response plan reviewed and updated annually.',
+    ],
+    relatedProcedures: [
+      'Code Red – Fire Emergency Response Plan (OP-EM-001)',
+      'Patient Evacuation Tiers and Priorities (OP-EM-004)',
+      'Incident Command System Activation (OP-EM-010)',
+      'Fire Extinguisher Use and Inspection (OP-FS-002)',
+      'Post-Emergency Debriefing and Recovery (OP-EM-015)',
+    ],
+    operationalChecklist: [
+      'Fire alarm activated and 2222 called',
+      'Code Red overhead announced with location',
+      'R-A-C-E sequence initiated',
+      'All unit doors closed',
+      'Evacuation tiers assigned by charge nurse',
+      'Ambulatory patients guided to assembly point',
+      'Non-ambulatory patients evacuated horizontally',
+      'Head count completed at assembly area',
+      'Missing persons reported to Incident Commander',
+      'Fire department briefed on known hazards (O₂ lines, biohazard)',
+      'All-clear received before unit re-entry',
+      'Post-incident debrief scheduled within 24 hours',
+    ],
+  },
+}
+
+/**
+ * Generates a response for an arbitrary free-text question.
+ * In production, this is replaced by a real watsonx API call.
+ */
+export function getGenericResponse(query) {
+  return {
+    scenario: 'Operational Guidance',
+    summary: `This is a simulated response for: "${query}". In a production deployment, this answer is generated by the IBM watsonx AI Agent connected to your hospital's policy corpus and clinical knowledge base.`,
+    workflow: [
+      'Query received and classified by the OpsPilot intent engine.',
+      'Relevant policy documents retrieved from the hospital knowledge base.',
+      'AI reasoning applied across retrieved context.',
+      'Structured response compiled and returned.',
+    ],
+    responsibleStaff: [
+      { role: 'OpsPilot AI Agent', responsibility: 'Query processing, knowledge retrieval, response generation' },
+      { role: 'Clinical Operations Team', responsibility: 'Policy authoring and knowledge base maintenance' },
+    ],
+    requiredDocumentation: ['Per the applicable operational policy for this scenario.'],
+    safetyCompliance: ['All guidance is subject to validation against the current edition of your hospital policy manual.'],
+    relatedProcedures: ['Contact your Clinical Informatics or Quality team to link this scenario to specific procedure codes.'],
+    operationalChecklist: [
+      'Confirm applicability of this guidance to your specific scenario',
+      'Cross-reference with current departmental policy',
+      'Escalate to supervisor if uncertainty exists',
+    ],
+  }
+}
