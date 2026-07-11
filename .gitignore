@@ -1,57 +1,60 @@
-﻿# -------------------------
+﻿# ==========================
 # Python
-# -------------------------
+# ==========================
 backend/venv/
 backend/__pycache__/
-backend/*.pyc
+*.pyc
+*.pyo
+
+# Backend secrets
 backend/.env
 
-# -------------------------
-# Node
-# -------------------------
+# ==========================
+# Node / Vite
+# ==========================
 node_modules/
 dist/
+dist-ssr/
+.vite/
 
-# -------------------------
-# Environment Files
-# -------------------------
+# ==========================
+# Environment files
+# ==========================
 .env
 .env.local
 .env.production
 .env.development
-
-# -------------------------
-# IDE
-# -------------------------
-.vscode/
-.idea/
-
-# -------------------------
-# OS
-# -------------------------
-.DS_Store
-Thumbs.db
-
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-dist-ssr/
-
-# Environment variables — NEVER commit these
-.env
-.env.local
 .env.*.local
 
-# Editor
+# ==========================
+# Streamlit
+# ==========================
+.streamlit/secrets.toml
+
+# ==========================
+# IDE
+# ==========================
 .vscode/
 .idea/
 
+# ==========================
+# Logs
+# ==========================
+*.log
+npm-debug.log*
+
+# ==========================
+# Build
+# ==========================
+build/
+coverage/
+
+# ==========================
 # OS
+# ==========================
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-npm-debug.log*
+# Python
+__pycache__/
+*.py[cod]
