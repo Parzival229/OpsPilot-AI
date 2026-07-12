@@ -1,15 +1,24 @@
+from routes.chat import router as chat_router
 from ibm import ask_ibm
 from fastapi import FastAPI
 from config import IBM_API_KEY, IBM_DEPLOYMENT_ENDPOINT
 from auth import get_iam_token
+
 
 app = FastAPI(
     title="OpsPilot AI Backend",
     version="1.0.0"
 )
 
+app.include_router(chat_router)
 
-from config import IBM_API_KEY
+@app.get("/")
+def root():
+    return {
+        "status": "running"
+    }
+
+
 
 @app.get("/debug")
 def debug():
