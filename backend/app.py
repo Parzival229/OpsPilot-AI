@@ -1,12 +1,12 @@
-from fastapi.middleware.cors import CORSMiddleware
-from ibm import ask_ibm
 from fastapi import FastAPI
-from config import IBM_API_KEY, IBM_DEPLOYMENT_ENDPOINT
-from auth import get_iam_token
+from fastapi.middleware.cors import CORSMiddleware
+
+from routes.chat import router as chat_router
 
 app = FastAPI(
     title="OpsPilot AI Backend",
-    version="1.0.0"
+    version="1.0.0",
+    description="Enterprise Healthcare Operations AI API powered by IBM watsonx.ai"
 )
 
 app.add_middleware(
@@ -19,41 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from config import IBM_API_KEY
+app.include_router(chat_router)
 
-@app.get("/debug")
-def debug():
+@app.get("/")
+def root():
     return {
-        "length": len(IBM_API_KEY),
-        "starts_with": IBM_API_KEY[:15],
-        "ends_with": IBM_API_KEY[-10:]
+        "status": "running",
+        "service": "OpsPilot AI Backend"
     }
-
-
-@app.get("/auth-test")
-def auth_test():
-    token = get_iam_token()
-
-    return {
-        "success": True,
-        "token_preview": token[:30] + "..."
-    }
-
-
-@app.get("/deployment-test")
-def deployment_test():
-
-    response = ask_ibm("Hello")
-
-    return {
-        "status_code": response.status_code,
-        "response": response.json()
-    }    
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy",
-        "service": "OpsPilot AI Backend",
-        "version": "1.0.0-beta"
-    }    
