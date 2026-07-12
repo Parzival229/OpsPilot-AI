@@ -73,11 +73,23 @@ export default function ChatPanel() {
       dispatch({ type: 'ADD_TYPING' })
 
       try {
-        const response = await fetchGuidance(query)
+        const apiResponse = await fetchGuidance(query)
+
         dispatch({ type: 'REMOVE_TYPING' })
-        dispatch({ type: 'ADD_AI', payload: response })
+
+        if (!apiResponse.success) {
+          throw new Error(
+            apiResponse.error ?? 'Backend returned an unsuccessful response.'
+          )
+        }
+
+        dispatch({
+          type: 'ADD_AI',
+          payload: apiResponse.response,
+        })
       } catch (err) {
         dispatch({ type: 'REMOVE_TYPING' })
+
         dispatch({
           type: 'ADD_ERROR',
           payload: err?.message ?? 'An unexpected error occurred. Please try again.',
