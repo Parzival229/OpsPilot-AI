@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from ibm import ask_ibm
 from fastapi import FastAPI
 from config import IBM_API_KEY, IBM_DEPLOYMENT_ENDPOINT
@@ -8,6 +9,15 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 from config import IBM_API_KEY
 
@@ -38,4 +48,12 @@ def deployment_test():
     return {
         "status_code": response.status_code,
         "response": response.json()
+    }    
+
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy",
+        "service": "OpsPilot AI Backend",
+        "version": "1.0.0-beta"
     }    
