@@ -393,7 +393,7 @@ IBM_DEPLOYMENT_ENDPOINT=https://your_ibm_deployment_endpoint
 | Backend | ✅ Complete |
 | IBM Integration | ✅ Complete |
 | Knowledge Base | 🚧 In Progress |
-| Streamlit Deployment | 🚧 Planned |
+|  Deployment | ✅ Complete |
 | Enterprise Integrations | 📍 Roadmap |
 
 # Roadmap
